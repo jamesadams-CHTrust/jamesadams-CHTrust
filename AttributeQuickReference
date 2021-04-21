@@ -1,0 +1,24 @@
+/*Attributes Quick Reference and Table Names*/
+
+select ac.id ATTRIBUTEGUID,
+AC.DATATYPE,
+AC.NAME,
+RT.BASETABLENAME,
+TC.TABLENAME
+,CONCAT(TC.TABLENAME,'AUDIT') AUDITTABLE
+,agc.description ATTRIBUTEGROUP
+,ac.VALUECOLUMNNAME
+,ctc.DBTABLENAME
+,ctc.CODETABLENAME
+
+from attributecategory ac
+left join attributerecordtype art on ac.attributerecordtypeid = art.ID
+left join recordtype rt on art.recordtypeid = rt.id
+LEFT JOIN TABLECATALOG TC ON AC.TABLECATALOGID = TC.ID
+left join ATTRIBUTEGROUPCODE agc on ac.attributegroupCODEid = agc.id
+left join CODETABLECATALOG ctc on ac.CODETABLECATALOGID = ctc.ID
+where
+ ac.name like '%interaction source%' 
+--and BASETABLENAME = 'REVENUE'
+--AGC.DESCRIPTION LIKE '%Luminate%'
+--BASETABLENAME = 'REGISTRANT'
